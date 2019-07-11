@@ -9,10 +9,7 @@ defmodule MemeBase.Schema do
   query do
     field :memes, list_of(:meme) do
       resolve fn (_, _)->
-        {:ok, [
-          %{id: "1", url: "whatever.com/meme"},
-          %{id: "3", url: "memebase.inseng.net/vanilla-milk-shake"},
-        ]}
+        {:ok, MemeBase.Meme |> MemeBase.Repo.all}
       end
     end
   end
