@@ -19,6 +19,10 @@ defmodule MemeBaseWeb.Router do
     get "/", PageController, :index
   end
 
+  forward "/graphql", Absinthe.Plug, schema: MemeBase.Schema
+
+  forward "/graphiql", Absinthe.Plug.GraphiQL, schema: MemeBase.Schema, interface: :simple
+
   # Other scopes may use custom stacks.
   # scope "/api", MemeBaseWeb do
   #   pipe_through :api
