@@ -5,7 +5,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import Courses from "./Courses";
 const client = new ApolloClient({
-  uri: "https://vm8mjvrnv3.lp.gql.zone/graphql"
+  uri: "/graphql"
 });
 const Index = () => (
   <ApolloProvider client={client}>
