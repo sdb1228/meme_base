@@ -6,12 +6,8 @@ const Courses = () => (
   <Query
     query={gql`
       {
-        allCourses {
+        memes {
           id
-          title
-          author
-          description
-          topic
           url
         }
       }

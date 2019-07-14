@@ -1,0 +1,85 @@
+.modalOverlayStyle {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(28,28,28, 0.75);
+}
+
+.modalStyle {
+  position: absolute;
+  top: 10rem;
+  left: 30rem;
+  right: 30rem;
+  bottom: 28rem;
+  background: #44484F;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.closeButton {
+  border: none;
+  background: transparent;
+  color: #A2A4A7;
+  font-size: large;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.browseButton {
+  display: inline-block;
+  color: #333;
+  padding: 4px 15px;
+  margin: 0 5px;
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom,#e0e0e0,#b7b7b7);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+}
+
+.browseText {
+  color: #A2A4A7;
+}
+
+.browseButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropContainer {
+  width: 150px;
+  height: 100px;
+  border: 2px dotted #bbb;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dropContainerParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pasteUrlInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  margin-top: 2rem;
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #45484f;
+  box-shadow: inset 0 2px 6px 0 rgba(0,0,0,.26);
+  color: #696969;
+  text-align: center;
+  outline: 0;
+}

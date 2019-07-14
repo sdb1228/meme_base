@@ -1,0 +1,46 @@
+.header {
+  background-image: linear-gradient(to right, #FF004F 35%, #FF7300);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 1);
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  padding-left: 10px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  display: flex;
+}
+
+.addButton {
+  border: none;
+  background: transparent;
+}
+
+.homeRouteContainer {
+  flex: 1;
+}
+
+.searchButton {
+  border: none;
+  background: transparent;
+}
+
+.searchAddContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.searchIcon {
+  font-size: large;
+  margin-right: 2rem;
+}
+
+.homeRoute {
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}

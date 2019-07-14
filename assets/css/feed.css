@@ -1,0 +1,16 @@
+.feed {
+  background-color: #1c1c1c;
+  margin-top: 2rem;
+  width: 100%;
+  background-size: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedItemContainer {
+  margin-bottom: 3rem;
+  height: 35rem;
+  width: 35rem;
+}
