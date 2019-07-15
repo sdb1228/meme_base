@@ -11,9 +11,10 @@ defmodule MemeBase.Application do
       # Start the Ecto repository
       MemeBase.Repo,
       # Start the endpoint when the application starts
-      MemeBaseWeb.Endpoint
+      MemeBaseWeb.Endpoint,
       # Starts a worker by calling: MemeBase.Worker.start_link(arg)
       # {MemeBase.Worker, arg},
+      {Samly.Provider, []},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

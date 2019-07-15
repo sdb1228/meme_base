@@ -65,6 +65,41 @@ config :meme_base, MemeBaseWeb.Endpoint,
     ]
   ]
 
+
+config :samly, Samly.Provider,
+  idp_id_from: :path_segment,
+  service_providers: [
+    %{
+      id: "do-good-affiliates-sp",
+      entity_id: "urn:do-good.org:affiliates-app",
+      certfile: "path/to/samly/certfile.pem",
+      keyfile: "path/to/samly/keyfile.pem",
+      #contact_name: "Affiliates Admin",
+      #contact_email: "affiliates-admin@do-good.org",
+      #org_name: "Do Good",
+      #org_displayname: "Goodly, No evil!",
+      #org_url: "https://do-good.org"
+    }
+  ],
+  identity_providers: [
+    %{
+      id: "affiliates",
+      sp_id: "do-good-affiliates-sp",
+      base_url: "https://do-good.org/sso",
+      metadata_file: "idp1_metadata.xml",
+      pre_session_create_pipeline: SamlyPipeline,
+      #use_redirect_for_req: false,
+      #sign_requests: true,
+      #sign_metadata: true,
+      #signed_assertion_in_resp: true,
+      #signed_envelopes_in_resp: true,
+      #allow_idp_initiated_flow: false,
+      #allowed_target_urls: ["https://do-good.org"],
+      #nameid_format: :transient
+    }
+  ]
+
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
