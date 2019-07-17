@@ -13,14 +13,14 @@ defmodule MemeBaseWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/sso" do
+    forward "/", Samly.Router
+  end
+
   scope "/", MemeBaseWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-  end
-
-  scope "/sso" do
-    forward "/", Samly.Router
   end
 
   forward "/graphql", Absinthe.Plug, schema: MemeBase.Schema

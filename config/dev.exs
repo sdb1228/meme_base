@@ -76,9 +76,9 @@ config :samly, Samly.Provider,
   idp_id_from: :path_segment,
   service_providers: [
     %{
-      id: "do-good-affiliates-sp",
-      entity_id: "urn:do-good.org:affiliates-app",
-      certfile: "path/to/samly/certfile.pem",
+      id: "memebase-sp",
+      entity_id: "urn:simply-saml"
+      certfile: "priv/cert/memebase-sp.pem",
       keyfile: "path/to/samly/keyfile.pem",
       #contact_name: "Affiliates Admin",
       #contact_email: "affiliates-admin@do-good.org",
@@ -90,9 +90,9 @@ config :samly, Samly.Provider,
   identity_providers: [
     %{
       id: "affiliates",
-      sp_id: "do-good-affiliates-sp",
-      base_url: "https://do-good.org/sso",
-      metadata_file: "idp1_metadata.xml",
+      sp_id: "memebase-sp",
+      base_url: "https://localhost:8443/simplysaml/saml2/idp/SSOService.php",
+      metadata_file: "config/simple_saml.xml",
       pre_session_create_pipeline: SamlyPipeline,
       #use_redirect_for_req: false,
       #sign_requests: true,
