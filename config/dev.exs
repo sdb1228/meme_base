@@ -17,6 +17,12 @@ config :meme_base, MemeBase.Repo,
 # with webpack to recompile .js and .css sources.
 config :meme_base, MemeBaseWeb.Endpoint,
   http: [port: 4000],
+  https: [
+    port: 4001,
+    cipher_suite: :strong,
+    certfile: "priv/cert/meme_base_sp.pem",
+    keyfile: "priv/cert/meme_base_sp_key.pem"
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
