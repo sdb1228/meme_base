@@ -91,7 +91,7 @@ config :samly, Samly.Provider,
     %{
       id: "affiliates",
       sp_id: "memebase-sp",
-      base_url: "https://localhost:8443/simplysaml/saml2/idp/SSOService.php",
+      base_url: "https://localhost:8443/simplesaml/saml2/idp/SSOService.php",
       metadata_file: "config/simple_saml.xml",
       pre_session_create_pipeline: SamlyPipeline,
       #use_redirect_for_req: false,
