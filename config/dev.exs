@@ -77,7 +77,7 @@ config :samly, Samly.Provider,
   service_providers: [
     %{
       id: "memebase-sp",
-      entity_id: "urn:simply-saml",
+      entity_id: "urn:memebase.com:fake-okta",
       certfile: "priv/cert/meme_base_sp.pem",
       keyfile: "priv/cert/meme_base_sp_key.pem",
       #contact_name: "Affiliates Admin",
@@ -89,10 +89,9 @@ config :samly, Samly.Provider,
   ],
   identity_providers: [
     %{
-      id: "affiliates",
+      id: "okta",
       sp_id: "memebase-sp",
-      base_url: "https://localhost:8443/simplesaml/saml2/idp/SSOService.php",
-      metadata_file: "config/simple_saml.xml", # < -- are you getting read?
+      metadata_file: "config/simple_saml.xml",
       pre_session_create_pipeline: MemeBaseWeb.Plugs.SamlyPipeline, #< -- problem
       #use_redirect_for_req: false,
       #sign_requests: true,
