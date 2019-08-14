@@ -72,12 +72,16 @@ config :meme_base, MemeBaseWeb.Endpoint,
   ]
 
 
+config :samly, Samly.State,
+  store: Samly.State.Session,
+  opts: [key: "samly_session"]
+
 config :samly, Samly.Provider,
   idp_id_from: :path_segment,
   service_providers: [
     %{
       id: "memebase-sp",
-      entity_id: "urn:memebase.com:fake-okta",
+      entity_id: "urn:memebase:fake-okta",
       certfile: "priv/cert/meme_base_sp.pem",
       keyfile: "priv/cert/meme_base_sp_key.pem",
       #contact_name: "Affiliates Admin",
@@ -92,7 +96,7 @@ config :samly, Samly.Provider,
       id: "okta",
       sp_id: "memebase-sp",
       metadata_file: "config/simple_saml.xml",
-      pre_session_create_pipeline: MemeBaseWeb.Plugs.SamlyPipeline, #< -- problem
+      base_url: "http://localhost:4000/sso",
       #use_redirect_for_req: false,
       #sign_requests: true,
       #sign_metadata: true,
