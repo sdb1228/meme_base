@@ -21,6 +21,7 @@ defmodule MemeBaseWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/upload", PageController, :upload
   end
 
   forward "/graphql", Absinthe.Plug, schema: MemeBase.Schema
