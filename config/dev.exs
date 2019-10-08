@@ -1,13 +1,20 @@
 use Mix.Config
 
-# Configure your database
-config :meme_base, MemeBase.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "meme_base_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+try do
+  import_config "dev_repo.exs"
+rescue
+  e in Code.LoadError ->
+    # Configure your database
+    config :meme_base, MemeBase.Repo,
+      username: "postgres",
+      password: "postgres",
+      database: "meme_base_dev",
+      hostname: "localhost",
+      show_sensitive_data_on_connection_error: true,
+      pool_size: 10
+end
+
+
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
