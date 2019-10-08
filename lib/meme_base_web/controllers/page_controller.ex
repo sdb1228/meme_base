@@ -11,14 +11,17 @@ defmodule MemeBaseWeb.PageController do
     end
   end
 
+  @upload_dir "priv/uploads"
+
   def upload(conn, %{"img" => upload} = _params) do
     with {:ok, _saml_junk} <- Authenticator.authenticate(conn) do
       # TODO:
-      # - make sure this is an image (at least check upload.content_type)
-      # - generate a unique filename
-      # - put this somewhere real
-      # - save file info to db and return identifier
-      File.cp upload.path, "/tmp/#{upload.filename}"
+      # - [ ] make sure this is an image (at least check upload.content_type)
+      # - [ ] generate a unique filename
+      # - [X] put this somewhere real
+      # - [ ] save file info to db and return identifier
+      File.mkdir_p!(@upload_dir)
+      File.cp! upload.path, "#{@upload_dir}/#{upload.filename}"
       text conn, "OK"
     end
   end
