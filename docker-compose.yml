@@ -1,0 +1,12 @@
+version: "3.4"
+services:
+  simplesaml:
+    image: kristophjunge/test-saml-idp
+    environment:
+      SIMPLESAMLPHP_SP_ENTITY_ID: urn:memebase:fake-okta
+      SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE: http://localhost:4000/sso/sp/consume/okta
+      SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE: http://localhost:4000/sso/sp/logout/okta
+      VIRTUAL_HOST: simplysaml.docker
+    ports:
+      - "8080:8080"
+      - "8443:8443"
