@@ -10,3 +10,14 @@ services:
     ports:
       - "8080:8080"
       - "8443:8443"
+
+  s3:
+    image: minio/minio
+    volumes:
+      - "./priv/uploads:/data"
+    environment:
+      MINIO_ACCESS_KEY: "ACCESSKEY"
+      MINIO_SECRET_KEY: "SECRETKEY"
+    ports:
+      - "9000:9000"
+    command: "server /data"
