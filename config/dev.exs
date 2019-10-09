@@ -131,5 +131,5 @@ config :ex_aws,
   json_codec: Jason
 config :ex_aws, :s3,
   scheme: "http://",
-  host: "localhost",
+  host: "s3",
   port: 9000
