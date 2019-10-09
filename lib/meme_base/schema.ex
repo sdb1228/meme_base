@@ -6,20 +6,17 @@ defmodule MemeBase.Schema do
 
   object :meme do
     field :id, :id
-    field :url, :string
-  end
-
-  connection node_type: :meme
-
-  mutation do
-    @desc "Create a meme"
-    field :create_meme, type: :meme do
-      arg :url, non_null(:string)
-      resolve fn (%{url: url}, _)->
-        %MemeBase.Meme{url: url} |> MemeBase.Repo.insert
+    field :url, :string do
+      resolve fn (meme, _, _) ->
+        # TODO - make bucket configurable
+        # TODO - cache this url
+        ExAws.Config.new(:s3)
+        |> ExAws.S3.presigned_url(:get, "memebase", meme.s3_path)
       end
     end
   end
+
+  connection node_type: :meme
 
   query do
     connection field :memes_connection, node_type: :meme do

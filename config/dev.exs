@@ -14,8 +14,6 @@ rescue
       pool_size: 10
 end
 
-
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -125,3 +123,13 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+## AWS config
+config :ex_aws,
+  access_key_id: "ACCESSKEY",
+  secret_access_key: "SECRETKEY",
+  json_codec: Jason
+config :ex_aws, :s3,
+  scheme: "http://",
+  host: "localhost",
+  port: 9000

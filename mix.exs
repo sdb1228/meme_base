@@ -44,9 +44,17 @@ defmodule MemeBase.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+
+      # graphql
       {:absinthe, "~> 1.4.0"},
       {:absinthe_plug, "~> 1.4.0"},
       {:absinthe_relay, "~> 1.4.0-rc or ~> 1.4"},
+
+      # s3
+      {:ex_aws, "~> 2.1.1"},
+      {:ex_aws_s3, "~> 2.0.2"},
+      {:hackney, "~> 1.15.2"},
+      {:sweet_xml, "~> 0.6.6"},
     ]
   end
 

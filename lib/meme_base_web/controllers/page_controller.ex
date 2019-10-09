@@ -11,17 +11,26 @@ defmodule MemeBaseWeb.PageController do
     end
   end
 
-  @upload_dir "priv/uploads"
+  alias ExAws.S3
 
   def upload(conn, %{"img" => upload} = _params) do
     with {:ok, _saml_junk} <- Authenticator.authenticate(conn) do
       # TODO:
       # - [ ] make sure this is an image (at least check upload.content_type)
-      # - [ ] generate a unique filename
-      # - [X] put this somewhere real
+      # - [X] generate a unique filename
+      #   - [ ] generate friendlier filenames
       # - [ ] save file info to db and return identifier
-      File.mkdir_p!(@upload_dir)
-      File.cp! upload.path, "#{@upload_dir}/#{upload.filename}"
+
+      s3_path = Ecto.UUID.generate() <> Path.extname(upload.filename)
+
+      {:ok, _response} = upload.path
+      |> S3.Upload.stream_file
+      |> S3.upload("memebase", s3_path)
+      |> ExAws.request
+
+      # insert into memes table
+      {:ok, _} = %MemeBase.Meme{s3_path: s3_path} |> MemeBase.Repo.insert
+
       text conn, "OK"
     end
   end
