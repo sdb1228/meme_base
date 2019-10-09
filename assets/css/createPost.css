@@ -4,20 +4,32 @@
   left: 0px;
   right: 0px;
   bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(28,28,28, 0.75);
 }
 
 .modalStyle {
   position: absolute;
-  top: 10rem;
-  left: 30rem;
-  right: 30rem;
-  bottom: 28rem;
   background: #44484F;
   overflow: auto;
   border-radius: 4px;
   outline: none;
   padding: 20px;
+}
+
+.memeCreatorModal {
+  position: absolute;
+  background: #44484F;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.content {
+  width: 600px
 }
 
 .closeButton {
@@ -83,3 +95,6 @@
   text-align: center;
   outline: 0;
 }
+
+
+

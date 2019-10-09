@@ -4,6 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import ReactModal from 'react-modal';
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import MemeCreator from './MemeCreator';
 
 const ADD_POST = gql`
   mutation CreatePostMutation($title: String!, $url: String!, $user_id: ID!) {
@@ -25,7 +26,10 @@ function isValidURL(str) {
 export default class CreatePost extends Component {
   constructor() {
     super();
-    this.state = { isOpen: true }
+    this.state = {
+      isOpen: true,
+      selectedImage: null
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -45,6 +49,21 @@ export default class CreatePost extends Component {
     }
   }
 
+  onFileSelected = event => {
+    const file = event.currentTarget.files[0]
+    if (FileReader && file) {
+        var fr = new FileReader();
+        fr.onload = () => {
+          const image = new Image();
+          image.src = fr.result
+          image.onload = () => {
+            this.setState({selectedImage: image})
+          }
+        }
+        fr.readAsDataURL(file);
+    }
+  }
+
   render() {
       return (
       <Mutation mutation={ADD_POST}>
@@ -52,16 +71,18 @@ export default class CreatePost extends Component {
           <ReactModal
             isOpen={this.state.isOpen}
             overlayClassName={Style.modalOverlayStyle}
-            className={Style.modalStyle}
+            className={this.state.selectedImage ? Style.memeCreatorModal : Style.modalStyle}
             contentLabel="Create Post Modal"
             appElement={document.getElementById("index")}
           >
-            <div className={Style.content} >
+            <div className={!this.state.selectedImage ? Style.content : null} >
               <div className={Style.header} >
                 <button className={Style.closeButton} onClick={this.closeModal}>
                   <FaTimes />
                 </button>
               </div>
+              <MemeCreator file={this.state.selectedImage}/>
+              {!this.state.selectedImage  &&
               <div className={Style.formContent}>
                 <div className={Style.dropContainerParent}>
                   <div className={Style.dropContainer}>
@@ -69,7 +90,19 @@ export default class CreatePost extends Component {
                   </div>
                 </div>
                 <div className={Style.browseButtonContainer}>
-                  <button className={Style.browseButton}>Browse</button>
+                  <input
+                    id="attachmentFile"
+                    ref={element => {
+                      this.fileInput = element
+                    }}
+                    onChange={this.onFileSelected}
+                    style={{
+                      display: 'none'
+                    }}
+                    accept=".png,.jpeg"
+                    type="file"
+                  />
+                  <button onClick={() => { this.fileInput.click() }} className={Style.browseButton} >Browse</button>
                   <div className={Style.browseText}> or drag images here. </div>
                 </div>
                 <div className={Style.inputContainer} >
@@ -79,6 +112,7 @@ export default class CreatePost extends Component {
                     placeholder="Paste Image or URL"/>
                 </div>
               </div>
+              }
             </div>
           </ReactModal>
         )}
