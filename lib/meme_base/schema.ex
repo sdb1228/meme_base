@@ -16,7 +16,21 @@ defmodule MemeBase.Schema do
     end
   end
 
+  object :like_meme_payload do
+    field :meme, type: :meme
+  end
+
   connection node_type: :meme
+
+  mutation do
+    @desc "Like a meme"
+    field :like_meme, type: :like_meme_payload do
+      arg :id, non_null(:id)
+      resolve fn (%{id: id}, _) ->
+        {:ok, %{meme: Meme |> Repo.get(id)}}
+      end
+    end
+  end
 
   query do
     connection field :memes_connection, node_type: :meme do
