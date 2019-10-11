@@ -18,6 +18,7 @@ services:
     environment:
       MINIO_ACCESS_KEY: "ACCESSKEY"
       MINIO_SECRET_KEY: "SECRETKEY"
+      VIRTUAL_HOST: s3.docker
     ports:
       - "9000:9000"
     command: "server /data"

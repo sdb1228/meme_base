@@ -131,5 +131,5 @@ config :ex_aws,
   json_codec: Jason
 config :ex_aws, :s3,
   scheme: "http://",
-  host: "s3",
+  host: "s3.docker",
   port: 9000

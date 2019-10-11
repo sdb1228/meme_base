@@ -81,7 +81,7 @@ export default class CreatePost extends Component {
                   <FaTimes />
                 </button>
               </div>
-              <MemeCreator file={this.state.selectedImage}/>
+              <MemeCreator closeModal={this.closeModal} file={this.state.selectedImage}/>
               {!this.state.selectedImage  &&
               <div className={Style.formContent}>
                 <div className={Style.dropContainerParent}>
