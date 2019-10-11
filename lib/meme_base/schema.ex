@@ -36,6 +36,14 @@ defmodule MemeBase.Schema do
         {:ok, %{meme: Meme |> Repo.get(id)}}
       end
     end
+
+    @desc "Un-like a meme"
+    field :unlike_meme, type: :like_meme_payload do
+      arg :id, non_null(:id)
+      resolve fn (%{id: id}, _) ->
+        {:ok, %{meme: Meme |> Repo.get(id)}}
+      end
+    end
   end
 
   query do
