@@ -35,8 +35,7 @@ defmodule MemeBaseWeb.PageController do
     end
   end
 
-  def health_check(conn) do
-    conn |> text "OK"
+  def health_check(conn, _params) do
+    text conn, "OK"
   end
-end
 end
