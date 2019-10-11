@@ -143,8 +143,13 @@ class MemeCreator extends React.Component {
       var xhr = new XMLHttpRequest();
       fd.append("img", blob);
       xhr.open('POST', '/upload', true);
+      xhr.onload = (e) => {
+        this.props.closeModal()
+      };
+      xhr.onerror = function () {
+        console.error("ERROR HERE MEMEMEMEMEMEMEMEMES BROKEN");
+      };
       xhr.send(fd);
-      this.props.closeModal()
     };
   }
 
