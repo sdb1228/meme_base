@@ -17,7 +17,7 @@ export default class Header extends Component {
   renderPostModal = () => {
     return (
       <Suspense fallback={<div>Loading...</div>}>
-        <CreatePost isOpen />
+        <CreatePost refetchFeed={this.props.refetchFeed} isOpen />
       </Suspense>
     )
   }

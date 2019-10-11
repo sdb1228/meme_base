@@ -20,12 +20,12 @@ const MemeBase = () => (
       }
     `}
   >
-    {({ loading, error, data }) => {
+    {({ loading, error, data, refetch }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error</p>;
       return (
         <span className={Style.container}>
-          <Header />
+          <Header refetchFeed={refetch}/>
           <Feed items={data.memesConnection.edges}/>
         </span>
       );

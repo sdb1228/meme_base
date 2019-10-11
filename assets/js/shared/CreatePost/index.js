@@ -38,6 +38,7 @@ export default class CreatePost extends Component {
 
   closeModal = () => {
     this.setState({isOpen: false})
+    this.props.refetchFeed()
   }
 
   inputChange = (e, createPost) => {
