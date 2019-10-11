@@ -22,6 +22,7 @@ defmodule MemeBaseWeb.Router do
 
     get "/", PageController, :index
     post "/upload", PageController, :upload
+    get "/health_check", PageController, :health_check
   end
 
   forward "/graphql", Absinthe.Plug, schema: MemeBase.Schema
