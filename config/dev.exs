@@ -6,10 +6,10 @@ rescue
   e in Code.LoadError ->
     # Configure your database
     config :meme_base, MemeBase.Repo,
-      username: "postgres",
-      password: "postgres",
-      database: "meme_base_dev",
-      hostname: "localhost",
+      username: System.get_env("DB_USER", "postgres"),
+      password: System.get_env("DB_PASSWORD", "postgres"),
+      database: System.get_env("DB_DATABASE", "meme_base_dev"),
+      hostname: System.get_env("DB_HOSTNAME", "localhost"),
       show_sensitive_data_on_connection_error: true,
       pool_size: 10
 end
@@ -101,7 +101,7 @@ config :samly, Samly.Provider,
       id: "okta",
       sp_id: "memebase-sp",
       metadata_file: "config/simple_saml.xml",
-      base_url: "http://localhost:4000/sso",
+      base_url: System.get_env("BASE_URL", "http://localhost:4000/sso"),
       #use_redirect_for_req: false,
       #sign_requests: true,
       #sign_metadata: true,
