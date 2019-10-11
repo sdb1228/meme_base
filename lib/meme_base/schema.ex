@@ -14,6 +14,12 @@ defmodule MemeBase.Schema do
         |> ExAws.S3.presigned_url(:get, "memebase", meme.s3_path)
       end
     end
+
+    field :likes, :integer do
+      resolve fn (_, _) ->
+        {:ok, :rand.uniform(100)}
+      end
+    end
   end
 
   object :like_meme_payload do
