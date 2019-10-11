@@ -3,7 +3,7 @@ use Mix.Config
 try do
   import_config "dev_repo.exs"
 rescue
-  e in Code.LoadError ->
+  _ in Code.LoadError ->
     # Configure your database
     config :meme_base, MemeBase.Repo,
       username: "postgres",
