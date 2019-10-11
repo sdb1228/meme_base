@@ -141,7 +141,7 @@ class MemeCreator extends React.Component {
       const blob = this.dataURItoBlob(canvasdata)
       var fd = new FormData();
       var xhr = new XMLHttpRequest();
-      fd.append("img", blob);
+      fd.append("img", blob, "meme.png");
       xhr.open('POST', '/upload', true);
       xhr.onload = (e) => {
         this.props.closeModal()
