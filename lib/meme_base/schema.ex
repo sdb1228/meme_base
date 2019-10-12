@@ -6,10 +6,10 @@ defmodule MemeBase.Schema do
 
   defp require_user(resolver) do
     fn
-      parent, args, %{context: %{current_user: current_user}} = res ->
+      parent, args, %{context: %{current_user: _u}} = res ->
         resolver.(parent, args, res) |> IO.inspect(label: "require user")
 
-      parent, args, _ ->
+      _, _, _ ->
         {:ok, nil} |> IO.inspect(label: "require user")
     end
   end
