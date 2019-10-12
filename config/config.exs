@@ -12,7 +12,7 @@ config :meme_base,
 
 # Configures the endpoint
 config :meme_base, MemeBaseWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("HOST", "localhost")],
   secret_key_base: "3pBVPiXSlxml7C2BSjPmibAn8d2x/XbFs/x1s7uUaUIqGJBnnxpcISqiJzzI8GqA",
   render_errors: [view: MemeBaseWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: MemeBase.PubSub, adapter: Phoenix.PubSub.PG2]

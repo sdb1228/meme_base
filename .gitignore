@@ -35,3 +35,6 @@ npm-debug.log
 
 # Local dev database configuration
 /config/dev_repo.exs
+
+# S3 volume
+priv/uploads/
