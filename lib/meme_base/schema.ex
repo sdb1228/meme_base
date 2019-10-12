@@ -16,19 +16,20 @@ defmodule MemeBase.Schema do
 
   object :meme do
     field :id, :id
+
     field :url, :string do
-      resolve fn (meme, _, _) ->
+      resolve(fn meme, _, _ ->
         # TODO - make bucket configurable
         # TODO - cache this url
         ExAws.Config.new(:s3)
         |> ExAws.S3.presigned_url(:get, "memebase", meme.s3_path)
-      end
+      end)
     end
 
     field :likes, :integer do
-      resolve fn (_, _) ->
+      resolve(fn _, _, _ ->
         {:ok, :rand.uniform(100)}
-      end
+      end)
     end
   end
 
@@ -36,31 +37,39 @@ defmodule MemeBase.Schema do
     field :meme, type: :meme
   end
 
-  connection node_type: :meme
+  connection(node_type: :meme)
 
   mutation do
     @desc "Like a meme"
     field :like_meme, type: :like_meme_payload do
-      arg :id, non_null(:id)
-      resolve require_user(fn (_, %{id: id}, _) ->
-        {:ok, %{meme: Meme |> Repo.get(id)}}
-      end)
+      arg(:id, non_null(:id))
+
+      resolve(
+        require_user(fn _, %{id: id}, _ ->
+          {:ok, %{meme: Meme |> Repo.get(id)}}
+        end)
+      )
     end
 
     @desc "Un-like a meme"
     field :unlike_meme, type: :like_meme_payload do
-      arg :id, non_null(:id)
-      resolve require_user(fn (_, %{id: id}, _) ->
-        {:ok, %{meme: Meme |> Repo.get(id)}}
-      end)
+      arg(:id, non_null(:id))
+
+      resolve(
+        require_user(fn _, %{id: id}, _ ->
+          {:ok, %{meme: Meme |> Repo.get(id)}}
+        end)
+      )
     end
   end
 
   query do
     connection field :memes_connection, node_type: :meme do
-      resolve require_user(fn (_, args, _) ->
-        Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
-      end)
+      resolve(
+        require_user(fn _, args, _ ->
+          Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
+        end)
+      )
     end
   end
 end
