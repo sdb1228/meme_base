@@ -4,11 +4,14 @@ defmodule MemeBase.Schema do
 
   alias MemeBase.{Meme, Repo}
 
+  import Ecto.Query, only: [from: 2]
+
   query do
     connection field :memes_connection, node_type: :meme do
       resolve(
         require_user(fn _, args, _ ->
-          Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
+          query = Ecto.Query.from Meme, order_by: [desc: :id]
+          Absinthe.Relay.Connection.from_query(query, &Repo.all/1, args)
         end)
       )
     end
