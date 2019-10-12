@@ -22,26 +22,3 @@ services:
     ports:
       - "9000:9000"
     command: "server /data"
-
-  postgres:
-    image: "postgres:11"
-    container_name: memebase_postgres
-    ports:
-      - "54320:5432"
-
-  memebase:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-        - "4000:4000"
-        - "4001:4001"
-    environment:
-      DB_HOSTNAME: postgres
-      HOST: 'http://memebase.docker:4000'
-      BASE_URL: 'http://memebase.docker:4000/sso'
-      VIRTUAL_HOST: memebase.docker
-    depends_on:
-      - s3
-      - simplesaml
-      - postgres
