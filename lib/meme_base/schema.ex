@@ -4,6 +4,40 @@ defmodule MemeBase.Schema do
 
   alias MemeBase.{Meme, Repo}
 
+  query do
+    connection field :memes_connection, node_type: :meme do
+      resolve(
+        require_user(fn _, args, _ ->
+          Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
+        end)
+      )
+    end
+  end
+
+  mutation do
+    @desc "Like a meme"
+    field :like_meme, type: :like_meme_payload do
+      arg(:id, non_null(:id))
+
+      resolve(
+        require_user(fn _, %{id: id}, _ ->
+          {:ok, %{meme: Meme |> Repo.get(id)}}
+        end)
+      )
+    end
+
+    @desc "Un-like a meme"
+    field :unlike_meme, type: :like_meme_payload do
+      arg(:id, non_null(:id))
+
+      resolve(
+        require_user(fn _, %{id: id}, _ ->
+          {:ok, %{meme: Meme |> Repo.get(id)}}
+        end)
+      )
+    end
+  end
+
   defp require_user(resolver) do
     fn
       parent, args, %{context: %{current_user: _u}} = res ->
@@ -38,38 +72,4 @@ defmodule MemeBase.Schema do
   end
 
   connection(node_type: :meme)
-
-  mutation do
-    @desc "Like a meme"
-    field :like_meme, type: :like_meme_payload do
-      arg(:id, non_null(:id))
-
-      resolve(
-        require_user(fn _, %{id: id}, _ ->
-          {:ok, %{meme: Meme |> Repo.get(id)}}
-        end)
-      )
-    end
-
-    @desc "Un-like a meme"
-    field :unlike_meme, type: :like_meme_payload do
-      arg(:id, non_null(:id))
-
-      resolve(
-        require_user(fn _, %{id: id}, _ ->
-          {:ok, %{meme: Meme |> Repo.get(id)}}
-        end)
-      )
-    end
-  end
-
-  query do
-    connection field :memes_connection, node_type: :meme do
-      resolve(
-        require_user(fn _, args, _ ->
-          Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
-        end)
-      )
-    end
-  end
 end
