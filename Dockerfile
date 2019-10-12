@@ -16,5 +16,5 @@ WORKDIR /app
 RUN mix deps.get
 RUN cd assets && npm install
 
-EXPOSE 4000
+EXPOSE 8080
 ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
