@@ -4,6 +4,16 @@ defmodule MemeBase.Schema do
 
   alias MemeBase.{Meme, Repo}
 
+  defp require_user(resolver) do
+    fn
+      parent, args, %{context: %{current_user: current_user}} = res ->
+        resolver.(parent, args, res) |> IO.inspect(label: "require user")
+
+      parent, args, _ ->
+        {:ok, nil} |> IO.inspect(label: "require user")
+    end
+  end
+
   object :meme do
     field :id, :id
     field :url, :string do
@@ -32,25 +42,25 @@ defmodule MemeBase.Schema do
     @desc "Like a meme"
     field :like_meme, type: :like_meme_payload do
       arg :id, non_null(:id)
-      resolve fn (%{id: id}, _) ->
+      resolve require_user(fn (_, %{id: id}, _) ->
         {:ok, %{meme: Meme |> Repo.get(id)}}
-      end
+      end)
     end
 
     @desc "Un-like a meme"
     field :unlike_meme, type: :like_meme_payload do
       arg :id, non_null(:id)
-      resolve fn (%{id: id}, _) ->
+      resolve require_user(fn (_, %{id: id}, _) ->
         {:ok, %{meme: Meme |> Repo.get(id)}}
-      end
+      end)
     end
   end
 
   query do
     connection field :memes_connection, node_type: :meme do
-      resolve fn (args, _) ->
+      resolve require_user(fn (_, args, _) ->
         Absinthe.Relay.Connection.from_query(Meme, &Repo.all/1, args)
-      end
+      end)
     end
   end
 end
